@@ -1,0 +1,30 @@
+sequenceDiagram
+    participant browser
+    participant server
+    
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa
+    activate server
+    server-->>browser: HTML document
+    deactivate server
+    
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/main.css
+    activate server
+    server-->>browser: the css file
+    deactivate server
+    
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/spa.js
+    activate server
+    server-->>browser: the JavaScript file
+    deactivate server
+    
+    Note right of browser: After the browser has loaded the HTML, CSS, and JavaScript file, it starts running the JavaScript code. This JavaScript code is responsible for making a request to the server to fetch the JSON data containing the notes.
+    
+    browser->>server: GET https://studies.cs.helsinki.fi/exampleapp/data.json
+    activate server
+    server-->>browser: [{
+        "content": "hi",
+        "date": "2024-10-09T07:52:05.226Z"
+    }, ... ]
+    deactivate server    
+
+    Note right of browser: After receiving the JSON response (which contains the list of notes), the browser runs a callback function. This function takes the JSON data and renders it on the webpage, displaying the notes for the user. 
